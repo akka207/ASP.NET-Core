@@ -1,0 +1,49 @@
+﻿@model NomenclatureIndexViwModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div class="row">
+    <div class="col">
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+    </div>
+    <div class="col">
+<form asp-controller="Nomenclatures" asp-action="Index" method="get">
+    Шуати в середині:@Html.CheckBoxFor(m=>m.SearchMiddle);
+    Name: <input type="text" name="filter" value="@Model.Filter" />
+            <input type="submit" value="Filter" class="btn btn-primary" />
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Items) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
